@@ -34,7 +34,7 @@ public class MainTraing {
 		//CalcolaTrading.testMovimentoMercatoCasuale(prezzoApertura, lottoApertura, 2, capitaleDisponibile, 0);
 		
 		// Inizializza il simulatore con un prezzo iniziale di 1.1000
-        MarketEmulator market = new MarketEmulator(1.1000);
+        MarketEmulator market = new MarketEmulator(1.1000,2,capitaleDisponibile);
         market.startMarket(200000);
 	}
 
