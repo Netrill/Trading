@@ -6,17 +6,17 @@ public class PosizioneApertura {
 	private double prezzoApertura;
 	private double guadagnoRimessa;
 	private double lottoApertura;
-	private double takeProfit;
-	 
+	private String tipoOperazione;
 	
 	
 	
-	public PosizioneApertura(int id,double prezzoApertura, double guadagnoRimessa, double lottoApertura, double takeProfit) {
+	public PosizioneApertura(int id,String tipoApertura,double prezzoApertura, double guadagnoRimessa, double lottoApertura, double takeProfit) {
 		super();
 		this.prezzoApertura = prezzoApertura;
 		this.guadagnoRimessa = guadagnoRimessa;
 		this.lottoApertura = lottoApertura;
-		this.takeProfit = takeProfit;
+		this.tipoOperazione=tipoApertura;
+
 
 	}
 	public double getPrezzoApertura() {
@@ -37,11 +37,9 @@ public class PosizioneApertura {
 	public void setLottoApertura(double lottoApertura) {
 		this.lottoApertura = lottoApertura;
 	}
-	public double getTakeProfit() {
-		return takeProfit;
-	}
-	public void setTakeProfit(double takeProfit) {
-		this.takeProfit = takeProfit;
+	public void aggiornaPosizione(double newPrice) {
+		if (prezzoApertura>)
+		
 	}
 	 
 

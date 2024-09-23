@@ -24,7 +24,7 @@ public  class CalcolaTrading {
 			System.out.println("Mese: "+i+" guadagnato: "+appoCapitale);
 			System.out.println("-----------------------------");
 		}
-		System.out.printf("Idealmente dopo mesi: "+mesi+" il capitale totale dovrebbe essere circa â‚¬: %.7f \n",appoCapitale);
+		System.out.printf("Idealmente dopo mesi: "+mesi+" il capitale totale dovrebbe essere circa €: %.7f \n",appoCapitale);
 		return appoCapitale;
 	}
 	static public double calcolaMargine(double prezzoApertura,int leva,double lotto) {

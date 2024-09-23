@@ -21,6 +21,7 @@ public class MarketEmulator {
     private boolean posizioniAperte;
     private List<PosizioneApertura> listaPosizioniAperte;
     private int nPosizioniAperte;
+    private double cifraDaGuadagnare;
 
     // Costruttore
     public MarketEmulator(double startingPrice,int percentualeDaGuadagnare,double capitale) {
@@ -34,6 +35,7 @@ public class MarketEmulator {
         this.posizioniAperte=false;
         listaPosizioniAperte=new ArrayList<PosizioneApertura>();
         this.nPosizioniAperte=0;
+        this.cifraDaGuadagnare=capitale/100*percentualeDaGuadagnare;
         
     }
     
@@ -119,6 +121,7 @@ public class MarketEmulator {
 	            if (!posizioniAperte)
 	            	checkApertura(newPrice);
 	            else {
+	            	aggiornaAperture(newPrice);
 	            	checkTakeProfit();
 	            }
 	            // Aggiungi un breve ritardo per simulare i tempi del mercato reale
@@ -133,6 +136,25 @@ public class MarketEmulator {
     		System.out.println("Errore : "+e.getMessage());
     	}
     }
+
+	private void aggiornaAperture(double newPrice) {
+		for (int i=0;i<this.listaPosizioniAperte.size();i++) {
+			this.listaPosizioniAperte.get(i).aggiornaPosizione(newPrice);
+		}
+		
+	}
+
+	private boolean checkTakeProfit() {
+		
+		//Idealmente dovrebbe chiudere quando una posizione non può rendere di più
+		double guadagnoRimessaAttuale=0;;
+		for (int i=0;i<this.listaPosizioniAperte.size();i++) {
+			guadagnoRimessaAttuale=guadagnoRimessaAttuale+this.listaPosizioniAperte.get(i).getGuadagnoRimessa();
+		}
+		if (guadagnoRimessaAttuale>=this.cifraDaGuadagnare)
+			return true;
+		return false;
+	}
 
 	
 }
