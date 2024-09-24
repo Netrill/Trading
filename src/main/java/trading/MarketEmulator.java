@@ -36,7 +36,8 @@ public class MarketEmulator {
         listaPosizioniAperte=new ArrayList<PosizioneApertura>();
         this.nPosizioniAperte=0;
         this.cifraDaGuadagnare=capitale/100*percentualeDaGuadagnare;
-        
+        this.lineaSupporto=startingPrice - intervalloPerApertura;
+        this.lineaResistenza=startingPrice + intervalloPerApertura;
     }
     
     boolean checkStopOut() {
@@ -93,21 +94,23 @@ public class MarketEmulator {
     		System.out.println("Sfondata Linea Supporto");
     		this.lineaSupporto = this.lineaSupporto + this.intervalloPerTakeProfit;
     		nPosizioniAperte++;
-    		this.listaPosizioniAperte.add(new PosizioneApertura(nPosizioniAperte,newPrice,0.1,newPrice+intervalloPerTakeProfit,newPrice+intervalloPerTakeProfit ));
+    		this.listaPosizioniAperte.add(new PosizioneApertura(nPosizioniAperte,"SELL",newPrice,0.1,newPrice+intervalloPerTakeProfit,newPrice-intervalloPerTakeProfit ));
     	}
     	if (newPrice >= this.lineaResistenza) {
     		System.out.println("Sfondata Linea Resistenza");
     		this.lineaResistenza = this.lineaResistenza - this.intervalloPerTakeProfit;
     		nPosizioniAperte++;
-    		this.listaPosizioniAperte.add(new PosizioneApertura(nPosizioniAperte,newPrice,0.1,newPrice+intervalloPerTakeProfit,newPrice-intervalloPerTakeProfit ));
+    		this.listaPosizioniAperte.add(new PosizioneApertura(nPosizioniAperte,"BUY",newPrice,0.1,newPrice+intervalloPerTakeProfit,newPrice+intervalloPerTakeProfit ));
     	}
     	
     	
 	}
     private boolean chekTakeProfit(double price) {
+    	double appoGuadagno=0;;
     	for (int i=0;i<this.listaPosizioniAperte.size()-1;i++) {
-    		this.listaPosizioniAperte.get(i).getPrezzoApertura()
+    		appoGuadagno=appoGuadagno+this.listaPosizioniAperte.get(i).getPrezzoApertura();
     	}
+    	return appoGuadagno>=cifraDaGuadagnare;
     }
 
     public  void startMarket(int nTick) {
@@ -126,7 +129,7 @@ public class MarketEmulator {
 	            }
 	            // Aggiungi un breve ritardo per simulare i tempi del mercato reale
 	            try {
-	                Thread.sleep(5);  // 500 millisecondi di pausa tra i tick
+	                Thread.sleep(500);  // 500 millisecondi di pausa tra i tick
 	            } catch (InterruptedException e) {
 	                e.printStackTrace();
 	            }
@@ -141,12 +144,10 @@ public class MarketEmulator {
 		for (int i=0;i<this.listaPosizioniAperte.size();i++) {
 			this.listaPosizioniAperte.get(i).aggiornaPosizione(newPrice);
 		}
-		
 	}
 
 	private boolean checkTakeProfit() {
-		
-		//Idealmente dovrebbe chiudere quando una posizione non può rendere di più
+		//Idealmente dovrebbe chiudere quando una posizione non puï¿½ rendere di piï¿½
 		double guadagnoRimessaAttuale=0;;
 		for (int i=0;i<this.listaPosizioniAperte.size();i++) {
 			guadagnoRimessaAttuale=guadagnoRimessaAttuale+this.listaPosizioniAperte.get(i).getGuadagnoRimessa();
