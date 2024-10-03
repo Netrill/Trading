@@ -16,8 +16,7 @@ public class MainTraing {
 		double prezzoApertura=(double) 1.112100;
 		double prezzoChiusura=(float) 1.112100;
 		double differenzaPrezzo=Math.abs(prezzoApertura-prezzoChiusura);
-		double valorePip=(double) ((0.0001/prezzoApertura)*lottoApertura*100000);
-		double valorePipette= (double) (0.000001/prezzoApertura*lottoApertura*100000);
+		
 		System.out.println("----------------------");
 		System.out.printf("Se apri con: "+lottoApertura+" lotti, ogni pip vale €: %.7f \n",valorePip);
 		System.out.println("Ci rimetti generalmente a ogni apertura €: "+spread*valorePipette );
